@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - T6club陪聊小店情商测试</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情感交流能力测试</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background: linear-gradient(to right, #ffe6f2, #cceeff);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .question {
+            margin: 20px 0;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .question:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #result {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            .question {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>T6club陪聊小店情商测试</h1>
+    <div class="quiz-container" id="quiz"></div>
+    <button id="submit">提交答案</button>
+    <div id="result"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "客户抱怨服务不周时，你会：",
+                options: [
+                    "A) 直接道歉并说明情况",  // A
+                    "B) 询问客户怎么了 并且倾听",  // B
+                    "C) 解释需要和客户保持一定距离"  // C
+                ],
+                answer: "B"
+            },
+            {
+                question: "当客户分享他们的个人故事时，你应该：",
+                options: [
+                    "A) 表示同情，并说明自己也遇到过这类凄惨的事情",  // A
+                    "B) 认真倾听，并给予适当的反馈",  // B
+                    "C) 尽快结束话题，转移话题"  // C
+                ],
+                answer: "B"
+            },
+            {
+                question: "客户表示感到孤独时，你的反应是：",
+                options: [
+                    "A) 说“别担心，很多人都这样，都会好的”",  // A
+                    "B) 说“虽然我不能真正的帮到你什么，但是只要你需要我就在",  // B
+                    "C) 说”没关系的，孤独是全部人都会感觉到的不止是你"  // C
+                ],
+                answer: "B"
+            },
+            {
+                question: "在处理情感问题时，最重要的是：",
+                options: [
+                    "A) 让客户感受到被理解，并且陪聊确实有在认真倾听我",  // A
+                    "B) 快速解决问题，问老板更多私人问题用于更好理解",  // B
+                    "C) 坚持自己的立场，说明老板的问题所在"  // C
+                ],
+                answer: "A"
+            },
+            {
+                question: "如果客户在情感上表现出愤怒，你会：",
+                options: [
+                    "A) 反驳他的观点，告诉他这样不对",  // A
+                    "B) 给出一些带有你个人观点的解决方案",  // B
+                    "C) 耐心听完，扮演倾听者"  // C
+                ],
+                answer: "C"
+            },
+            {
+                question: "客户询问如何处理焦虑时，你的建议是：",
+                options: [
+                    "A) 建议他们去看心理医生",  // A
+                    "B) 推荐一些放松的技巧",  // B
+                    "C) 说“这很正常，别担心”"  // C
+                ],
+                answer: "B"
+            },
+            {
+                question: "客户对服务表示满意时，你应该：",
+                options: [
+                    "A) 说“谢谢，期待您的下次光临”",  // A
+                    "B) 认为这是正常，当然的",  // B
+                    "C) 询问更多意见与想法"  // C
+                ],
+                answer: "C"
+            },
+            {
+                question: "当客户提到失落的感觉时，你会：",
+                options: [
+                    "A) 让他们讲述更多，倾听他们的感受",  // A
+                    "B) 转移话题，因为你也不知道确切的方法",  // B
+                    "C) 中断并表达你自己的看法"  // C
+                ],
+                answer: "A"
+            },
+            {
+                question: "客户在聊天中提到情感困扰，你会：",
+                options: [
+                    "A) 建议他们寻求专业帮助",  // A
+                    "B) 表示你的支持态度，告诉他你一直在",  // B
+                    "C) 结束聊天，避免涉及私事"  // C
+                ],
+                answer: "B"
+            },
+            {
+                question: "当客户表示压力过大时，你应该：",
+                options: [
+                    "A) 给一些可以缓解情绪的建议，告诉他真的有用",  // A
+                    "B) 不去深究，继续问其他问题",  // B
+                    "C) 说“大家都这样，会好的”"  // C
+                ],
+                answer: "A"
+            },
+            {
+                question: "如果客户希望你讨论关于你的个人问题，你会：",
+                options: [
+                    "A) 充当情绪垃圾桶，静静听完客户想表达什么",  // A
+                    "B) 接受，倾听，表示理解和同情",  // B
+                    "C) 讲述自己的经历，告诉他你以前也很惨，都是会好起来的"  // C
+                ],
+                answer: "B"
+            },
+            {
+                question: "客户因负面情绪影响体验时，你会：",
+                options: [
+                    "A) 说“这不是我们的问题，因为你也处于这样的情绪”",  // A
+                    "B) 让他们处理好情绪再找你聊天",  // B
+                    "C) 表示理解，并且换位思考自己如果是他会怎么样，及时认同"  // C
+                ],
+                answer: "C"
+            }
+        ];
+
+        // 根据给定的顺序调整选项
+        const newOrder = [
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"],
+            ["A", "B", "C"]
+        ];
+
+        newOrder.forEach((order, index) => {
+            const options = questions[index].options;
+            questions[index].options = order.map(option => options[["A", "B", "C"].indexOf(option)]);
+        });
+
+        let score = 0;
+
+        function loadQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `
+                    <p>${index + 1}. ${q.question}</p>
+                    ${q.options.map((option) => `
+                        <label>
+                            <input type="radio" name="question${index}" value="${option.charAt(0)}">
+                            ${option}
+                        </label><br>
+                    `).join('')}
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function calculateScore() {
+            score = 0; // 重置分数
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption && selectedOption.value === q.answer.charAt(0)) {
+                    score++;
+                }
+            });
+            document.getElementById('result').innerHTML = `你的得分是 ${score}/${questions.length}. ${score >= 9 ? "情感交流能力优秀！" : "情感交流能力有待提高！"}`;
+        }
+
+        document.getElementById('submit').addEventListener('click', calculateScore);
+
+        loadQuiz();
+    </script>
+
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
